@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO & Open Graph Tags -->
+  <title>VoteGuide | AI-Powered Civic Assistant</title>
+  <meta name="description" content="VoteGuide is your neutral, secure, and accessible AI assistant for polling places, ballot measures, and voting steps.">
+  <meta property="og:title" content="VoteGuide | AI-Powered Civic Assistant">
+  <meta property="og:description" content="VoteGuide is your neutral, secure, and accessible AI assistant for polling places, ballot measures, and voting steps.">
+  <meta property="og:image" content="docs/images/screenshot-desktop.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <div class="app-container">
+    <main id="main-content" class="glass-panel">
+      
+      <!-- Accessible Header -->
+      <header class="app-header" role="banner">
+        <div class="header-title">
+          <h1 id="app-title" aria-label="Vote Guide">VoteGuide</h1>
+          <p id="app-subtitle">Your AI-Powered Civic Assistant</p>
+        </div>
+        <div class="header-controls" role="toolbar" aria-label="Application Settings">
+          <!-- Language Selector -->
+          <select id="lang-select" aria-label="Select Language" title="Select Language">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="hi">हिंदी</option>
+            <option value="zh">中文</option>
+          </select>
+          <!-- High Contrast Toggle -->
+          <button id="contrast-toggle" class="control-btn" aria-pressed="false" aria-label="Toggle High Contrast">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Chat UI with ARIA Live Region -->
+      <div id="chat-window" class="chat-container" role="log" aria-live="polite" aria-atomic="false">
+        <!-- Messages will be injected here -->
+      </div>
+
+      <!-- Input Form -->
+      <form id="chat-form" class="input-area" role="search">
+        <div class="input-wrapper">
+          <label for="chat-input" class="sr-only">Ask a question</label>
+          <input 
+            type="text" 
+            id="chat-input" 
+            placeholder="Ask about polling places, ballot measures..." 
+            aria-label="Chat input" 
+            aria-controls="chat-window"
+            autocomplete="off" 
+            required
+          />
+          <button type="button" id="voice-btn" class="voice-btn" aria-label="Start Voice Input" title="Start Voice Input">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+          </button>
+        </div>
+        <button type="submit" id="send-btn" class="send-btn" aria-label="Send Message">
+          <span id="send-btn-text">Send</span>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+
+    </main>
+  </div>
+
+  <!-- External libraries and app logic -->
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

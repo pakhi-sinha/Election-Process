@@ -1,0 +1,20 @@
+{
+  "name": "electionprocess",
+  "version": "1.0.0",
+  "description": "VoteGuide is an accessible, AI-powered civic assistant that uses Gemini 3 Pro to help voters find polling places, understand ballot measures, and set voting reminders.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "jsdom": "^29.1.1",
+    "vitest": "^4.1.5"
+  }
+}

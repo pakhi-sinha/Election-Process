@@ -1,0 +1,11 @@
+{
+  "title": "VoteGuide",
+  "subtitle": "Tu Asistente Cívico Impulsado por IA",
+  "input_placeholder": "Pregunta sobre lugares de votación, medidas electorales...",
+  "send_button": "Enviar",
+  "voice_input_start": "Iniciar Entrada de Voz",
+  "voice_input_stop": "Detener Entrada de Voz",
+  "toggle_contrast": "Alternar Alto Contraste",
+  "language_selector": "Seleccionar Idioma",
+  "welcome_message": "¡Hola! Soy VoteGuide, tu asistente electoral neutral y seguro. ¿Cómo puedo ayudarte a prepararte para las próximas elecciones hoy?"
+}

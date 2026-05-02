@@ -1,0 +1,11 @@
+{
+  "title": "投票指南 (VoteGuide)",
+  "subtitle": "您的人工智能公民助手",
+  "input_placeholder": "询问关于投票地点、选票措施或投票步骤...",
+  "send_button": "发送",
+  "voice_input_start": "开始语音输入",
+  "voice_input_stop": "停止语音输入",
+  "toggle_contrast": "切换高对比度",
+  "language_selector": "选择语言",
+  "welcome_message": "你好！我是 VoteGuide，您中立且安全的选举助手。今天我能为您准备即将到来的选举提供什么帮助？"
+}

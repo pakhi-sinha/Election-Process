@@ -169,7 +169,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Send to Backend
     try {
-      const API_URL = "/api/chat";
+      const API_URL = window.location.hostname === "localhost"
+        ? "http://127.0.0.1:5001/studio-1814048900-b0590/us-central1/api/api/chat"
+        : "/api/chat";
+      
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -179,7 +182,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || 'Network response was not ok');
       }
 
       // For now, handling as simple JSON. SSE will be implemented in commit 25
@@ -189,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } catch (error) {
       console.error('Error sending message:', error);
-      addMessage(i18nData.error_message || "⚠️ Unable to connect. Please try again.", 'bot');
+      addMessage(error.message || i18nData.error_message || "⚠️ Unable to connect. Please try again.", 'bot');
     }
   });
 

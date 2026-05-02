@@ -1,0 +1,11 @@
+node_modules/
+.env
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+coverage/
+dist/
+public/__tests__/__coverage__/
+# Explicitly allowing package-lock.json (Amendment 5)
+!package-lock.json
+!functions/package-lock.json

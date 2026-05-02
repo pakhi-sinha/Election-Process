@@ -1,5 +1,23 @@
+const rateLimitMap = new Map();
+
+async function generateReply(message, language) {
+  return `This is a safe placeholder response for your message: "${message}". Language: ${language}`;
+}
+
 async function chatRoute(req, res) {
   try {
+    const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.ip || 'unknown';
+
+    const currentRequests = rateLimitMap.get(ip) || 0;
+    if (currentRequests >= 10) {
+      return res.status(429).json({ error: "Too many requests. Please try again later." });
+    }
+    rateLimitMap.set(ip, currentRequests + 1);
+    setTimeout(() => {
+      const count = rateLimitMap.get(ip) || 0;
+      rateLimitMap.set(ip, Math.max(0, count - 1));
+    }, 60000);
+
     const { message, language } = req.body;
 
     if (!message || typeof message !== 'string' || message.trim() === '') {
@@ -13,7 +31,8 @@ async function chatRoute(req, res) {
 
     const sanitizedMessage = message.trim().substring(0, 500);
 
-    return res.json({ reply: "Validated response placeholder" });
+    const reply = await generateReply(sanitizedMessage, language);
+    return res.json({ reply });
 
   } catch (error) {
     console.error("Error processing chat request:", error.message);

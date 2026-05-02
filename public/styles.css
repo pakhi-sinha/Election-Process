@@ -379,3 +379,26 @@ select option {
     padding: 1rem;
   }
 }
+
+/* Skip to Content Link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  padding: 12px 20px;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 9999;
+  border-radius: 0 0 8px 0;
+  transition: top 0.2s ease-in-out;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+#main-content {
+  outline: none;
+}

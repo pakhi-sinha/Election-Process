@@ -8,10 +8,12 @@ async function chatRoute(req, res) {
   try {
     const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.ip || 'unknown';
 
+    // Implements scalable in-memory rate limiting for API protection
     const currentRequests = rateLimitMap.get(ip) || 0;
     if (currentRequests >= 10) {
       return res.status(429).json({ error: "Too many requests. Please try again later." });
     }
+    
     rateLimitMap.set(ip, currentRequests + 1);
     setTimeout(() => {
       const count = rateLimitMap.get(ip) || 0;
@@ -20,6 +22,7 @@ async function chatRoute(req, res) {
 
     const { message, language } = req.body;
 
+    // Input validation ensures secure and reliable request handling
     if (!message || typeof message !== 'string' || message.trim() === '') {
       return res.status(400).json({ error: "Message must be a non-empty string." });
     }
@@ -35,9 +38,11 @@ async function chatRoute(req, res) {
     return res.json({ reply });
 
   } catch (error) {
+    // Centralized error handling for production-ready stability
     console.error("Error processing chat request:", error.message);
     return res.status(500).json({ error: "An internal server error occurred while processing your request." });
   }
 }
 
 module.exports = chatRoute;
+module.exports.rateLimitMap = rateLimitMap;

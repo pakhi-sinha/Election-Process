@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Deployed](https://img.shields.io/badge/deployed-Cloud%20Run-blue)
 
-🌍 Live API: https://your-cloud-run-url
+🌍 Live API: https://voteguide-api-160682526702.europe-west1.run.app
 
 An accessible, multilingual AI assistant that simplifies voting for everyone.
 

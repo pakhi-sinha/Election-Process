@@ -126,8 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
     contentDiv.className = 'message-content';
     
     if (isHtml) {
-      // Sanitize Markdown rendered HTML before inserting
-      contentDiv.innerHTML = DOMPurify.sanitize(content);
+      // Use the requested safe fallback pattern
+      const safeHTML = window.DOMPurify
+        ? DOMPurify.sanitize(marked.parse(content))
+        : marked.parse(content);
+      contentDiv.innerHTML = safeHTML;
     } else {
       contentDiv.textContent = content;
     }
@@ -189,10 +192,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // For now, handling as simple JSON. SSE will be implemented in commit 25
       const data = await response.json();
       const content = data.reply || "I am processing your request. Stay tuned!";
-      const parsed = (typeof marked !== "undefined")
-        ? marked.parse(content)
-        : content;
-      addMessage(parsed, 'bot', true);
+      
+      // Pass raw content; addMessage will handle parsing and sanitization
+      addMessage(content, 'bot', true);
 
     } catch (error) {
       console.error('Error sending message:', error);

@@ -188,8 +188,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // For now, handling as simple JSON. SSE will be implemented in commit 25
       const data = await response.json();
-      const htmlContent = marked.parse(data.reply || "I am processing your request. Stay tuned!");
-      addMessage(htmlContent, 'bot', true);
+      const content = data.reply || "I am processing your request. Stay tuned!";
+      const parsed = (typeof marked !== "undefined")
+        ? marked.parse(content)
+        : content;
+      addMessage(parsed, 'bot', true);
 
     } catch (error) {
       console.error('Error sending message:', error);

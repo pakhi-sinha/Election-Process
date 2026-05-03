@@ -126,10 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
     contentDiv.className = 'message-content';
     
     if (isHtml) {
-      // Use the requested safe fallback pattern
+      // Use the requested safe fallback pattern with an additional check for marked
+      const parsed = window.marked ? marked.parse(content) : content;
       const safeHTML = window.DOMPurify
-        ? DOMPurify.sanitize(marked.parse(content))
-        : marked.parse(content);
+        ? DOMPurify.sanitize(parsed)
+        : parsed;
       contentDiv.innerHTML = safeHTML;
     } else {
       contentDiv.textContent = content;

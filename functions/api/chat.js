@@ -1,7 +1,27 @@
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 const rateLimitMap = new Map();
 
+// Initialize Gemini API
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+const model = genAI.getGenerativeModel({ 
+  model: "gemini-1.5-flash",
+  systemInstruction: "You are VoteGuide, a neutral, secure, and helpful election assistant. Your goal is to provide accurate, non-partisan information about voting processes, polling places, and ballot measures. Always maintain a professional tone and prioritize accessible language. If you are unsure about specific local details, suggest the user check their official local election office website."
+});
+
 async function generateReply(message, language) {
-  return `This is a safe placeholder response for your message: "${message}". Language: ${language}`;
+  try {
+    if (!process.env.GEMINI_API_KEY) {
+      return `[Demo Mode] I am VoteGuide. I received your message in ${language}: "${message}". (Please configure GEMINI_API_KEY for live responses)`;
+    }
+
+    const prompt = `User language: ${language}. User message: ${message}`;
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text();
+  } catch (error) {
+    console.error("Gemini API Error:", error);
+    throw new Error("Failed to generate response from AI service.");
+  }
 }
 
 async function chatRoute(req, res) {
@@ -38,9 +58,16 @@ async function chatRoute(req, res) {
     return res.json({ reply });
 
   } catch (error) {
-    // Centralized error handling for production-ready stability
-    console.error("Error processing chat request:", error.message);
-    return res.status(500).json({ error: "An internal server error occurred while processing your request." });
+    // Detailed logging to help identify the cause of the 500 error
+    console.error("DEBUG - Chat Request Failed:");
+    console.error("Error Name:", error.name);
+    console.error("Error Message:", error.message);
+    if (error.stack) console.error("Stack Trace:", error.stack);
+
+    return res.status(500).json({ 
+      error: "An internal server error occurred.", 
+      details: error.message // Temporarily showing details to help debug
+    });
   }
 }
 

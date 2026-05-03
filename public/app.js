@@ -173,9 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Send to Backend
     try {
-      const API_URL = window.location.hostname === "localhost"
-        ? "http://127.0.0.1:5001/studio-1814048900-b0590/us-central1/api/api/chat"
-        : "/api/chat";
+      const API_URL = "/api/chat";
       
       const response = await fetch(API_URL, {
         method: 'POST',
